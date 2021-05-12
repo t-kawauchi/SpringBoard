@@ -18,15 +18,15 @@ public class ThreadServiceImpl implements ThreadService {
 	ThreadDataRepositoryCustom trc;
 	
 	@Override
-	public boolean resister(ThreadForm tf,String name) {
+	public int resisterAndGetThreadNumber(ThreadForm tf,String name) {
 		try {
 				ThreadDataEntity tde=new ThreadDataEntity(tf.getTitle(),name,tf.getMessage());
 				tr.save(tde);
 				tr.flush();
+				return tde.getId();
 		}catch(Exception e) {
-			return false;
+			return -1;
 		}
-				return true;
 	}
 
 	@Override

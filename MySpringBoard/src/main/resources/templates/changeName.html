@@ -23,12 +23,7 @@
 					<div>名前：</div>
 					<div th:text="${name}"></div>
 				</div>
-				<form action="/changeName" method="GET">
-					<input type="submit" class="navbar-toggler" 
-						data-toggle="collapse" data-target="#navbarHeader"
-						aria-controls="navbarHeader" aria-expanded="false"
-						aria-label="Toggle navigation" value=名前の変更>
-				</form>
+				
 			</div>
 		</div>
 	</header>
@@ -38,8 +33,11 @@
 			<div class="card-body">
 				<div>
 					新しい名前：
-					<form action="/changeName/change" method="POST">
-						<input type=text name="name"> <input type="submit"
+					<form action="/change" method="POST">
+						<input type=text name="name"> 
+						<div th:if="${#fields.hasErrors('nameForm.name')}"
+						th:errors="*{nameForm.name}" class="alert alert-danger">投稿エラー</div>
+						<input type="submit"
 							value=変更する>
 					</form>
 				</div>

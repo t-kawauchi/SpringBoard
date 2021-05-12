@@ -14,14 +14,16 @@ public class CommentServiceImpl implements CommentService {
 	CommentDataRepositoty cdr;
 
 	@Override
-	public boolean resister() {
-		
+	public boolean resister(int threadNumber,String message, String name) {
+		CommentDataEntity cd=new CommentDataEntity(threadNumber,message,name);
+		cdr.save(cd);
+		cdr.flush();
 		return false;
 	}
 
 	@Override
-	public List<CommentDataEntity> getAllComment() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
+	public List<CommentDataEntity> getAllComment(int threadNumber) {
+		List<CommentDataEntity> list =cdr.findAll();
+		return list;
+	}	
 }

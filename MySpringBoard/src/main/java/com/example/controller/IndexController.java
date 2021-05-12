@@ -8,15 +8,17 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.example.service.CommentService;
 import com.example.service.ThreadService;
+import com.example.validation.NameForm;
 import com.example.validation.SearchForm;
 import com.example.validation.ThreadForm;
 
 @Controller
-@RequestMapping(value="/")
+
 @SessionAttributes("name")
 public class IndexController {
 	@Autowired
@@ -29,11 +31,12 @@ public class IndexController {
 		return "名無し";
 	}
 	
+
+	
 	//indexの表示処理、過去のthreadデータを取得
 	@RequestMapping(value = "/")
 	public String moveIndex(Model model, ThreadForm tf, SearchForm sf) {
 		model.addAttribute("data", ts.getAllThread());
-		System.out.println("afw");
 		return "index";
 	}
 
@@ -45,20 +48,19 @@ public class IndexController {
 			return moveIndex(model, tf, sf);
 		}
 		//スレッド管理テーブル(THREAD_DATA_ENTITY)にデータを登録する処理
-		ts.resister(tf, name);
-		cs.resister();
+		int threadNumber=ts.resisterAndGetThreadNumber(tf, name);
+		cs.resister(threadNumber,tf.getMessage(),name);
 		return "redirect:/";
 	}
 
 	//詳細閲覧を押したときの処理
-	//	@RequestMapping(value = "/comment", method = RequestMethod.POST)
-	//	public String onClickView(@RequestParam("threadNumber") String threadNumber, Model model) {
-	//		//スレッド番号を取得しコメントDBからスレッド版番号が一致するものを取り出し、モデルに格納
-	//		Integer num = Integer.parseInt(threadNumber);
-	//		List<CommentDataEntity> data = commentDataRepositoryCustom.searchThread(num);
-	//		model.addAttribute("CommentData", data);
-	//		return "view";
-	//	}
+		@RequestMapping(value = "/comment", method = RequestMethod.POST)
+		public String onClickView(@RequestParam("threadNumber") String threadNumber, Model model) {
+			//スレッド番号を取得しコメントDBからスレッド版番号が一致するものを取り出し、モデルに格納
+			Integer num = Integer.parseInt(threadNumber);
+			model.addAttribute("data",cs.getAllComment(num));
+			return "comment";
+		}
 	//
 	//	//書き込みボタンが押されたとき
 	//	@RequestMapping(value = "/newComment", method = RequestMethod.POST)
@@ -76,7 +78,7 @@ public class IndexController {
 	
 	//	//index.htmlで名前変更を押したとき
 	@RequestMapping(value = "/changeName", method = RequestMethod.GET)
-	public String onClickTlansitionNameChange() {
+	public String moveChangeName(NameForm nf) {
 		return "changeName";
 	}
 
