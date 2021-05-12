@@ -1,47 +1,26 @@
-# SpringBoard
+# プロジェクト名：SpringBoard
 
-# Name（リポジトリ/プロジェクト/OSSなどの名前）
+Spring Bootを使用した掲示板
 
-分かりやすくてカッコイイ名前をつける（今回は"hoge"という名前をつける）
+# 主な機能
+ログイン認証、登録機能
+スレッドの新規作成、コメントの書き込み機能
 
-"hoge"が何かを簡潔に紹介する
+# 使用した言語、フレームワーク等
+### 言語
+Java 11
+### フレームワーク
+Spring boot ver.2.4.5
+bootstrap ver4.3.1
+### DB
+h2 database ver.1.4.200
+### テンプレートエンジン
+thymleaf ver3.0.12
+### その他ライブラリ
+jquery ver.3.4.1
+lombok ver.1.18.8
 
-# DEMO
 
-"hoge"の魅力が直感的に伝えわるデモ動画や図解を載せる
-
-# Features
-
-"hoge"のセールスポイントや差別化などを説明する
-
-# Requirement
-
-"hoge"を動かすのに必要なライブラリなどを列挙する
-
-* huga 3.5.2
-* hogehuga 1.0.2
-
-# Installation
-
-Requirementで列挙したライブラリなどのインストール方法を説明する
-
-```bash
-pip install huga_package
-```
-
-# Usage
-
-DEMOの実行方法など、"hoge"の基本的な使い方を説明する
-
-```bash
-git clone https://github.com/hoge/~
-cd examples
-python demo.py
-```
-
-# Note
-
-注意点などがあれば書く
 
 # Author
 
